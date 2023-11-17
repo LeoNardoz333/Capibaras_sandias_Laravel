@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SandiasController;
+use App\Http\Controllers\ChatbotController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,3 +19,4 @@ Route::get('/', function () {
     return view('index');
 });
 Route::get('/Sandías/index',[SandiasController::class,'index'])->name('SandiasIndex');
+Route::get('/Chatbot/index',[ChatbotController::class,'index'])->name('ChatbotIndex');

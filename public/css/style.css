@@ -6,12 +6,24 @@
     background-color: rgb(184, 118, 65);
     color: #462c14;
 }
+.btn-salir-rosa{
+    background-color: rgb(160, 73, 113);
+    color: #3b1121;
+}
+.btn-salir-verde{
+    background-color: rgb(73, 160, 106);
+    color: #123b11;
+}
 .Titulo{
     color: #D26500;
     font-size: 30px;
 }
 .Titulo-pagina-sandias{
     color: #FF6161;
+    font-size: 15px;
+}
+.Titulo-pagina-verde{
+    color: #286630;
     font-size: 15px;
 }
 .Titulo-sandias{

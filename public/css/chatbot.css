@@ -1,0 +1,62 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+  }
+
+  #chat-container {
+    /*margin: 20px auto;*/
+    height: 500px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  #chat-messages {
+    padding-left: 5px;
+    height: 470px;
+    overflow-y: scroll;
+  }
+
+  #user-input {
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    border-top: 1px solid #ccc;
+  }
+
+  #suggestions-container {
+    /*width: 150px;*/
+    float: right;
+    padding: 10px;
+    box-sizing: border-box;
+    border-left: 1px solid #ccc;
+    background-color: #fff;
+    /*height: 300px;*/
+    overflow-y: scroll;
+  }
+  .suggestion {
+    cursor: pointer;
+    padding: 5px;
+    margin-bottom: 5px;
+    background-color: #ddd;
+    border-radius: 3px;
+  }
+  .btn-salir-verde{
+      background-color: rgb(73, 160, 106);
+      color: #123b11;
+  }
+  .Titulo-pagina-verde{
+      color: #286630;
+      font-size: 15px;
+  }
+  .Titulo-verde{
+      color: #286630;
+      font-size: 30px;
+  }
+  .no-padding-row > * {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    margin-top: 0 !important;
+  }

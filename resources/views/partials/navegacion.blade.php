@@ -8,7 +8,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" href="" style="color: #462c14;" aria-current="page">Capibaras</a>
+            <a class="nav-link active" href="/" style="color: #462c14;" aria-current="page">Capibaras</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="{{route('SandiasIndex')}}" style="color: #462c14;" aria-current="page">Sandías</a>
@@ -17,7 +17,7 @@
             <a class="nav-link active" href="" style="color: #462c14;" aria-current="page">Opiniones</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="" style="color: #462c14;" aria-current="page">¿Preguntas?</a>
+            <a class="nav-link active" href="{{route('ChatbotIndex')}}" style="color: #462c14;" aria-current="page">¿Preguntas?</a>
           </li>
           <li class="nav-item">
             <form action="" method="post">
