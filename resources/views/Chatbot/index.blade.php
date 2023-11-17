@@ -9,7 +9,21 @@
         <div class="row justify-content-center no-padding-row">
           <div id="chat-container" class="w-100 h-100">
             <div id="chat-messages"></div>
+            @if (auth()->check())
+            <div class="row no-gutters no-padding-row">
+              <div class="col-9">
+                  <input type="text" class="form-control w-100" style="padding-left: 17px;" 
+                  id="user-input" placeholder="Escribe tu pregunta..." onkeydown="handleEnter(event)">
+              </div>
+              <div class="col-3">
+                  <form action="get" class="m-0">
+                      <input type="submit" class="btn-custom btn-salir-verde w-100 m-0 no-padding-row" value="Alimentar chat">
+                  </form>
+              </div>
+            </div>                         
+            @else
             <input type="text" id="user-input" placeholder="Escribe tu pregunta..." onkeydown="handleEnter(event)">
+            @endif
           </div>
         </div>
     </div>
@@ -38,12 +52,12 @@
       addMessage('Tú', userInput);
       document.getElementById('user-input').value = '';
   
-      addMessage('ChatBot', '¡Hola! Soy un ejemplo de respuesta del chatbot.');
+      addMessage('ChatBot', 'owo');
     }
   
     function handleSuggestionClick(suggestion) {
       addMessage('Tú', suggestion);
-      addMessage('ChatBot', '¡Hola! Soy un ejemplo de respuesta del chatbot.');
+      addMessage('ChatBot', 'awa');
     }
   
     function addSuggestions(suggestions) {

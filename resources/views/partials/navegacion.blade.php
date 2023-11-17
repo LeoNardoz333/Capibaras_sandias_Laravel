@@ -31,7 +31,7 @@
                 <li class="nav-item">
                     <form action="{{route('Login')}}" method="get">
                       @csrf
-                      <button type="submit" class="btn btn-salir-verde">Iniciar sesión</button>
+                      <button type="submit" class="btn btn-salir">Iniciar sesión</button>
                     </form>
                 </li>
                 @endif
