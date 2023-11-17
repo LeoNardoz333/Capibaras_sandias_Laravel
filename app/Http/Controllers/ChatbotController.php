@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\chatbot;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class ChatbotController extends Controller
 {
@@ -32,12 +33,13 @@ class ChatbotController extends Controller
         return redirect()->route('ChatbotIndex')->with('success', 'Pregunta añadida correctamente');
     }
 
-    public function respuestas($suggestion)
+
+    public function respuesta($suggestion)
     {
-        dd($suggestion);
         $respuesta = DB::table('chatbots')
-            ->where('pregunta', $suggestion)
-            ->value('respuesta');
-        //return response()->json(['respuesta' => $respuesta]);
+        ->where('pregunta', $suggestion)
+        ->value('respuesta');
+
+        return response()->json(['respuesta' => $respuesta]);
     }
 }
