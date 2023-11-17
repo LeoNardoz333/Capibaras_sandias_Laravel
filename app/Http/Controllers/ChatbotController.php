@@ -31,4 +31,13 @@ class ChatbotController extends Controller
         ]);
         return redirect()->route('ChatbotIndex')->with('success', 'Pregunta añadida correctamente');
     }
+
+    public function respuestas($suggestion)
+    {
+        dd($suggestion);
+        $respuesta = DB::table('chatbots')
+            ->where('pregunta', $suggestion)
+            ->value('respuesta');
+        //return response()->json(['respuesta' => $respuesta]);
+    }
 }

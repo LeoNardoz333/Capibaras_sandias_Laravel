@@ -59,12 +59,34 @@
       addMessage('Tú', userInput);
       document.getElementById('user-input').value = '';
   
-      addMessage('Capsan', 'owo');
+      //addMessage('Capsan', 'owo');
+      $.ajax({
+        url: '/respuestas/' + userInput,
+        type: 'GET',
+        success: function (response) {
+            addMessage('Capsan', response.respuesta);
+        },
+        error: function () {
+            // Maneja el error si es necesario
+            console.error('Error al obtener la respuesta');
+        }
+      });
     }
   
     function handleSuggestionClick(suggestion) {
       addMessage('Tú', suggestion);
-      addMessage('Capsan', 'awa');
+      //addMessage('Capsan', 'awa');
+      $.ajax({
+        url: '/respuesta/' + suggestion,
+        type: 'GET',
+        success: function (response) {
+            addMessage('Capsan', response.respuesta);
+        },
+        error: function () {
+            // Maneja el error si es necesario
+            console.error('Error al obtener la respuesta');
+        }
+      });
     }
   
     function addSuggestions(suggestions) {
