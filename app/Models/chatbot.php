@@ -11,5 +11,5 @@ class Chatbot extends Model
     protected $fillable = [
         'pregunta',
         'respuesta'
-    ]
+    ];
 }

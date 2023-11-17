@@ -1,6 +1,11 @@
 @extends('layouts.verde')
 @section('container')
   <body>
+    @if (session('success'))
+    <div id="success-message" class="alert alert-success" style="display: none;">
+        {{ session('success') }}
+    </div>
+    @endif
     <div class="mt-5 w-100 d-flex justify-content-center">
         <span class="Titulo-verde fw-bold text-center">Preguntas y respuestas</span>
     </div>
@@ -10,19 +15,21 @@
           <div id="chat-container" class="w-100 h-100">
             <div id="chat-messages"></div>
             @if (auth()->check())
-            <div class="row no-gutters no-padding-row">
-              <div class="col-9">
-                  <input type="text" class="form-control w-100" style="padding-left: 17px;" 
-                  id="user-input" placeholder="Escribe tu pregunta..." onkeydown="handleEnter(event)">
-              </div>
-              <div class="col-3">
-                  <form action="get" class="m-0">
-                      <input type="submit" class="btn-custom btn-salir-verde w-100 m-0 no-padding-row" value="Alimentar chat">
-                  </form>
-              </div>
-            </div>                         
-            @else
-            <input type="text" id="user-input" placeholder="Escribe tu pregunta..." onkeydown="handleEnter(event)">
+              @if (auth()->user()->permisos == 'admin')
+                <div class="row no-gutters no-padding-row">
+                  <div class="col-9">
+                      <input type="text" class="form-control w-100" style="padding-left: 17px;" 
+                      id="user-input" placeholder="Escribe tu pregunta..." onkeydown="handleEnter(event)">
+                  </div>
+                  <div class="col-3">
+                      <form action="{{route('ChatbotAlimentar')}}" class="m-0" method="get">
+                          <input type="submit" class="btn-custom btn-salir-verde w-100 m-0 no-padding-row" value="Alimentar chat">
+                      </form>
+                  </div>
+                </div>
+                @else
+                <input class="w-100" type="text" id="user-input" placeholder="Escribe tu pregunta..." onkeydown="handleEnter(event)">
+              @endif
             @endif
           </div>
         </div>
@@ -52,12 +59,12 @@
       addMessage('Tú', userInput);
       document.getElementById('user-input').value = '';
   
-      addMessage('ChatBot', 'owo');
+      addMessage('Capsan', 'owo');
     }
   
     function handleSuggestionClick(suggestion) {
       addMessage('Tú', suggestion);
-      addMessage('ChatBot', 'awa');
+      addMessage('Capsan', 'awa');
     }
   
     function addSuggestions(suggestions) {
@@ -77,7 +84,15 @@
   
     var initialSuggestions = ['¿Qué comen los capibaras?', '¿Por qué capibaras y sandías?', '¿Es la sandía top tier?'];
     addSuggestions(initialSuggestions);
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        var successMessage = document.getElementById("success-message");
+        successMessage.style.display = "block";
+
+        setTimeout(function() {
+            successMessage.style.display = "none";
+        }, 3000);
+    });
   </script>
-  
   </body>
 @endsection
