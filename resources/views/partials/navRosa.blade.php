@@ -19,12 +19,22 @@
           <li class="nav-item">
             <a class="nav-link active" href="{{route('ChatbotIndex')}}" style="color: #461421;;" aria-current="page">¿Preguntas?</a>
           </li>
+          @if (auth()->check())
+              <li class="nav-item mx-2">
+                  <span style="color:#FF6161; font-size:18px;">{{auth()->user()->username}}</span>
+              </li>
+              <form action="{{route('Logout')}}" method="post">
+                  @csrf
+                  <button type="submit" class="btn btn-salir-rosa">Cerrar sesión</button>
+              </form>
+          @else
           <li class="nav-item">
-            <form action="" method="post">
-              @csrf
-              <button type="submit" class="btn btn-salir-rosa">Iniciar sesión</button>
-            </form>
+              <form action="{{route('Login')}}" method="get">
+                @csrf
+                <button type="submit" class="btn btn-salir-rosa">Iniciar sesión</button>
+              </form>
           </li>
+          @endif
           <li class="nav-item">
             <!-- <span>Usuario: auth()->user()->username</span> -->
           </li>

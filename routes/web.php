@@ -20,8 +20,11 @@ Route::get('/', function () {
     return view('index');
 });
 Route::get('/Sandías/index',[SandiasController::class,'index'])->name('SandiasIndex');
+//Chatbot
 Route::get('/Chatbot/index',[ChatbotController::class,'index'])->name('ChatbotIndex');
+//Login y logout
 Route::get('/auth/login',[LoginController::class,'index'])->name('Login');
 Route::post('/auth/login',[LoginController::class,'iniciar'])->name('IniciarLogin');
 Route::get('/auth/registro',[LoginController::class,'mostrarRegistro'])->name('Registro');
 Route::post('/auth/registro',[LoginController::class,'registrar'])->name('Registrar');
+Route::post('/logout',[LoginController::class,'salir'])->name('Logout');

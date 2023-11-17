@@ -55,4 +55,10 @@ class LoginController extends Controller
         ]);
         return redirect()->route('Login');
     }
+
+    public function salir()
+    {
+        auth()->logout();
+        return redirect('/');
+    }
 }

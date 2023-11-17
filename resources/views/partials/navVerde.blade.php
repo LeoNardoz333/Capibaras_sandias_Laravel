@@ -22,7 +22,7 @@
               <li class="nav-item mx-2">
                   <span style="color:#286630; font-size:18px;">{{auth()->user()->username}}</span>
               </li>
-              <form action="" method="">
+              <form action="{{route('Logout')}}" method="post">
                   @csrf
                   <button type="submit" class="btn btn-salir-verde">Cerrar sesión</button>
               </form>
