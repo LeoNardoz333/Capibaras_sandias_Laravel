@@ -6,14 +6,20 @@
         {{ session('success') }}
     </div>
     @endif
-    <div class="mt-5 w-100 d-flex justify-content-center">
+    <div class="mt-2 w-100 d-flex justify-content-center">
         <span class="Titulo-verde fw-bold text-center">Preguntas y respuestas</span>
     </div>
-  <div id="chat-container" class="w-75 d-flex mx-auto mt-5">
+  <div id="chat-container" class="w-75 d-flex mx-auto mt-2">
     <div class="container">
         <div class="row justify-content-center no-padding-row">
           <div id="chat-container" class="w-100 h-100">
-            <div id="chat-messages"></div>
+            <div id="chat-messages">
+                @foreach(session('conversaciones', []) as $conversacion)
+                    <div>
+                        <strong>{{ $conversacion['sender'] }}:</strong> {{ $conversacion['message'] }}
+                    </div>
+                @endforeach
+            </div>
             @if (auth()->check())
               @if (auth()->user()->permisos == 'admin')
                 <div class="row no-gutters no-padding-row">
@@ -33,8 +39,11 @@
                   </div>
                 </div>
                 @else
-                <input class="w-100" type="text" id="user-input" placeholder="Escribe tu pregunta..." 
-                onkeydown="handleEnter(event)" name="pregunta">
+                <form action="{{route('ChatbotRespuesta')}}" method="POST" name="form-enviar" id="form-enviar">
+                    @csrf
+                    <input class="w-100" type="text" id="user-input" placeholder="Escribe tu pregunta..."
+                    onkeydown="handleEnter(event)" name="pregunta">
+                </form>
               @endif
             @endif
           </div>
@@ -44,36 +53,89 @@
         <div id="suggestions-container" class="w-100 h-100"></div>
     </div>
   </div>
-
   <script>
-    var conversaciones = [];
+    document.addEventListener("DOMContentLoaded", function() {
+      function addMessage(sender, message) {
+        var chatMessages = document.getElementById('chat-messages');
+        var newMessage = document.createElement('div');
+        newMessage.innerHTML = `<strong>${sender}:</strong> ${message}`;
+        chatMessages.appendChild(newMessage);
+      }
 
-  function addMessage(sender, message) {
-    var chatMessages = document.getElementById('chat-messages');
-    var newMessage = document.createElement('div');
-    newMessage.innerHTML = `<strong>${sender}:</strong> ${message}`;
-    chatMessages.appendChild(newMessage);
+      function handleEnter(event) {
+        if (event.key === 'Enter') {
+          handleUserInput();
+        }
+      }
 
-    // Agrega la conversación al arreglo
-    conversaciones.push({ sender: sender, message: message });
-  }
-  
-    // Verifica si hay conversaciones en la sesión
-    var conversaciones = @json(session('conversaciones', []));
+      function handleUserInput() {
+        var userInput = document.getElementById('user-input').value;
+        addMessage('Tú', userInput);
+        document.getElementById('user-input').value = '';
 
-    // Agrega las conversaciones al chat
-    conversaciones.forEach(function (conversacion) {
-        addMessage(conversacion.sender, conversacion.message);
+        $.ajax({
+          url: "{{ route('ChatbotRespuesta') }}",
+          type: 'POST',
+          data: {
+            _token: '{{ csrf_token() }}',
+            pregunta: userInput
+          },
+          success: function(response) {
+            addMessage('Capsan', response.respuesta);
+          },
+          error: function() {
+            console.error('Error al obtener la respuesta');
+          }
+        });
+      }
+
+      function handleSuggestionClick(suggestion) {
+        addMessage('Tú', suggestion);
+        $.ajax({
+          url: '/respuesta/' + suggestion,
+          type: 'GET',
+          success: function(response) {
+            addMessage('Capsan', response.respuesta);
+          },
+          error: function() {
+            console.error('Error al obtener la respuesta');
+          }
+        });
+      }
+
+      function addSuggestions(suggestions) {
+        var suggestionsContainer = document.getElementById('suggestions-container');
+        suggestionsContainer.innerHTML = '';
+
+        suggestions.forEach(function(suggestion) {
+          var suggestionElement = document.createElement('div');
+          suggestionElement.className = 'suggestion';
+          suggestionElement.textContent = suggestion;
+          suggestionElement.addEventListener('click', function() {
+            handleSuggestionClick(suggestion);
+          });
+          suggestionsContainer.appendChild(suggestionElement);
+        });
+      }
+
+      var initialSuggestions = ['¿Qué comen los capibaras?', '¿Por qué capibaras y sandías?', '¿Es la sandía top tier?'];
+      addSuggestions(initialSuggestions);
+
+      var successMessage = document.getElementById("success-message");
+      successMessage.style.display = "block";
+
+      setTimeout(function() {
+        successMessage.style.display = "none";
+      }, 3000);
     });
-
-    // Limpia la sesión para evitar que las conversaciones persistan
-    @php session(['conversaciones' => null]) @endphp; 
+  </script>
+  <script>
     /*function addMessage(sender, message) {
       var chatMessages = document.getElementById('chat-messages');
       var newMessage = document.createElement('div');
       newMessage.innerHTML = `<strong>${sender}:</strong> ${message}`;
       chatMessages.appendChild(newMessage);
-    }*/
+    }
 
     function handleEnter(event) {
       if (event.key === 'Enter') {
@@ -82,22 +144,13 @@
     }
 
     function handleUserInput() {
-    var userInput = document.getElementById('user-input').value;
-    addMessage('Tú', userInput);
-    document.getElementById('user-input').value = '';
-    //let myr = "route('ChatbotRespuesta',['suggestion'=>userInput])";
-    /*$.ajax({
-        url: $(this).attr("my";)
-        type: 'GET',
-        success: function (response) {
-            addMessage('Capsan', response.respuesta);
-        },handleUserInput
-        error: function () {
-            console.error(handleUserInput'Error al obtener la respuesta');
-        }
-    });*/
-    $.ajax({
-        url: '{{ route("ChatbotRespuesta") }}',
+      var userInput = document.getElementById('user-input').value;
+      addMessage('Tú', userInput);
+      document.getElementById('user-input').value = '';
+
+      //addMessage('Capsan', 'owo');
+      $.ajax({
+        url: {{route('ChatbotRespuesta')}},
         type: 'POST',
         data: {
             _token: '{{ csrf_token() }}',
@@ -107,24 +160,27 @@
             addMessage('Capsan', response.respuesta);
         },
         error: function () {
+            // Maneja el error si es necesario
             console.error('Error al obtener la respuesta');
         }
-    });
-}
+      });
+    }
 
-function handleSuggestionClick(suggestion) {
-    addMessage('Tú', suggestion);
-    $.ajax({
-        //url: route('ChatbotRespuesta',['suggestion'=>suggestion]),
+    function handleSuggestionClick(suggestion) {
+      addMessage('Tú', suggestion);
+      //addMessage('Capsan', 'awa');
+      $.ajax({
+        url: '/respuesta/' + suggestion,
         type: 'GET',
         success: function (response) {
             addMessage('Capsan', response.respuesta);
         },
         error: function () {
+            // Maneja el error si es necesario
             console.error('Error al obtener la respuesta');
         }
-    });
-}
+      });
+    }
 
     function addSuggestions(suggestions) {
       var suggestionsContainer = document.getElementById('suggestions-container');
@@ -151,7 +207,7 @@ function handleSuggestionClick(suggestion) {
         setTimeout(function() {
             successMessage.style.display = "none";
         }, 3000);
-    });
+    });*/
   </script>
   </body>
 @endsection

@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Session;
+
 
 class LoginController extends Controller
 {
@@ -58,6 +60,7 @@ class LoginController extends Controller
 
     public function salir()
     {
+        Session::forget('conversaciones');
         auth()->logout();
         return redirect('/');
     }

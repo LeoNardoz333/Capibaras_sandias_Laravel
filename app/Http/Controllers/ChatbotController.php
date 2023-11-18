@@ -36,22 +36,16 @@ class ChatbotController extends Controller
 
     public function respuesta(Request $request)
     {
-        $pregunta=$request->pregunta;
+        $pregunta = $request->pregunta;
         $respuesta = DB::table('chatbots')
-        ->where('pregunta', $pregunta)
-        ->value('respuesta');
-
-        // Obtén las conversaciones anteriores de la sesión
-    $conversacionesAnteriores = session('conversaciones', []);
-
-    // Agrega la nueva conversación
-    $conversaciones = array_merge($conversacionesAnteriores, [
-        ['sender' => 'Capsan', 'message' => $respuesta]
-    ]);
-
-    // Guarda las conversaciones en la sesión
-    session(['conversaciones' => $conversaciones]);
-
-    return redirect()->route('ChatbotIndex');
+            ->where('pregunta', $request->pregunta)
+            ->value('respuesta');
+        $conversacionesAnteriores = session('conversaciones', []);
+        $conversacionesAnteriores = is_array($conversacionesAnteriores) ? $conversacionesAnteriores : [];
+        $conversacionesAnteriores[] = ['sender' => 'Usuario', 'message' => $pregunta];
+        $conversacionesAnteriores[] = ['sender' => 'Capsan', 'message' => $respuesta];
+        session(['conversaciones' => $conversacionesAnteriores]);
+        return view('Chatbot.index', ['respuesta' => $respuesta]);
+        //return response()->json(['respuesta' => $respuesta]);
     }
 }
