@@ -34,12 +34,24 @@ class ChatbotController extends Controller
     }
 
 
-    public function respuesta($suggestion)
+    public function respuesta(Request $request)
     {
+        $pregunta=$request->pregunta;
         $respuesta = DB::table('chatbots')
-        ->where('pregunta', $suggestion)
+        ->where('pregunta', $pregunta)
         ->value('respuesta');
 
-        return response()->json(['respuesta' => $respuesta]);
+        // Obtén las conversaciones anteriores de la sesión
+    $conversacionesAnteriores = session('conversaciones', []);
+
+    // Agrega la nueva conversación
+    $conversaciones = array_merge($conversacionesAnteriores, [
+        ['sender' => 'Capsan', 'message' => $respuesta]
+    ]);
+
+    // Guarda las conversaciones en la sesión
+    session(['conversaciones' => $conversaciones]);
+
+    return redirect()->route('ChatbotIndex');
     }
 }

@@ -18,10 +18,12 @@
               @if (auth()->user()->permisos == 'admin')
                 <div class="row no-gutters no-padding-row">
                   <div class="col-9">
-                    <form action="{{route('ChatbotRespuesta',['suggestion'=>userInput])}}">
+                    <form action="{{route('ChatbotRespuesta')}}" method="POST" name="form-enviar" id="form-enviar">
+                      @csrf
                         <input type="text" class="form-control w-100" style="padding-left: 17px;"
-                        id="user-input" placeholder="Escribe tu pregunta..."
+                        id="user-input" placeholder="Escribe tu pregunta..." name="pregunta"
                         onkeydown="handleEnter(event)">
+                        <button type="submit" style="display: none;"></button>
                     </form>
                   </div>
                   <div class="col-3">
@@ -31,7 +33,8 @@
                   </div>
                 </div>
                 @else
-                <input class="w-100" type="text" id="user-input" placeholder="Escribe tu pregunta..." onkeydown="handleEnter(event)">
+                <input class="w-100" type="text" id="user-input" placeholder="Escribe tu pregunta..." 
+                onkeydown="handleEnter(event)" name="pregunta">
               @endif
             @endif
           </div>
@@ -43,13 +46,34 @@
   </div>
 
   <script>
+    var conversaciones = [];
 
-    function addMessage(sender, message) {
+  function addMessage(sender, message) {
+    var chatMessages = document.getElementById('chat-messages');
+    var newMessage = document.createElement('div');
+    newMessage.innerHTML = `<strong>${sender}:</strong> ${message}`;
+    chatMessages.appendChild(newMessage);
+
+    // Agrega la conversación al arreglo
+    conversaciones.push({ sender: sender, message: message });
+  }
+  
+    // Verifica si hay conversaciones en la sesión
+    var conversaciones = @json(session('conversaciones', []));
+
+    // Agrega las conversaciones al chat
+    conversaciones.forEach(function (conversacion) {
+        addMessage(conversacion.sender, conversacion.message);
+    });
+
+    // Limpia la sesión para evitar que las conversaciones persistan
+    @php session(['conversaciones' => null]) @endphp; 
+    /*function addMessage(sender, message) {
       var chatMessages = document.getElementById('chat-messages');
       var newMessage = document.createElement('div');
       newMessage.innerHTML = `<strong>${sender}:</strong> ${message}`;
       chatMessages.appendChild(newMessage);
-    }
+    }*/
 
     function handleEnter(event) {
       if (event.key === 'Enter') {
@@ -61,9 +85,9 @@
     var userInput = document.getElementById('user-input').value;
     addMessage('Tú', userInput);
     document.getElementById('user-input').value = '';
-    //let myr = "{{route('ChatbotRespuesta',['suggestion'=>userInput])}}";
-    $.ajax({
-        url: myr,$(this).attr("my";)
+    //let myr = "route('ChatbotRespuesta',['suggestion'=>userInput])";
+    /*$.ajax({
+        url: $(this).attr("my";)
         type: 'GET',
         success: function (response) {
             addMessage('Capsan', response.respuesta);
@@ -71,13 +95,27 @@
         error: function () {
             console.error(handleUserInput'Error al obtener la respuesta');
         }
+    });*/
+    $.ajax({
+        url: '{{ route("ChatbotRespuesta") }}',
+        type: 'POST',
+        data: {
+            _token: '{{ csrf_token() }}',
+            pregunta: userInput
+        },
+        success: function (response) {
+            addMessage('Capsan', response.respuesta);
+        },
+        error: function () {
+            console.error('Error al obtener la respuesta');
+        }
     });
 }
 
 function handleSuggestionClick(suggestion) {
     addMessage('Tú', suggestion);
     $.ajax({
-        url: {{route('ChatbotRespuesta',['suggestion'=>suggestion])}},
+        //url: route('ChatbotRespuesta',['suggestion'=>suggestion]),
         type: 'GET',
         success: function (response) {
             addMessage('Capsan', response.respuesta);

@@ -24,7 +24,7 @@ Route::get('/Sandías/index',[SandiasController::class,'index'])->name('SandiasI
 Route::get('/Chatbot/index',[ChatbotController::class,'index'])->name('ChatbotIndex');
 Route::get('/Chatbot/alimentar',[ChatbotController::class,'formulario'])->name('ChatbotAlimentar');
 Route::post('/Chatbot/alimentar',[ChatbotController::class,'alimentar'])->name('ChatbotInsertar');
-Route::get('/ChatbotRespuesta/{suggestion}', [ChatbotController::class, 'respuesta'])->name('ChatbotRespuesta');
+Route::post('/ChatbotRespuesta', [ChatbotController::class, 'respuesta'])->name('ChatbotRespuesta');
 //Login y logout
 Route::get('/auth/login',[LoginController::class,'index'])->name('Login');
 Route::post('/auth/login',[LoginController::class,'iniciar'])->name('IniciarLogin');
