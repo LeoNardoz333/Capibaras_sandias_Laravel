@@ -16,7 +16,7 @@
             <div id="chat-messages">
                 @foreach(session('conversaciones', []) as $conversacion)
                     <div>
-                        <strong>{{ $conversacion['sender'] }}:</strong> {{ $conversacion['message'] }}
+                        <strong style="color: rgb(10, 70, 37);">{{ $conversacion['sender'] }}:</strong> {{ $conversacion['message'] }}
                     </div>
                 @endforeach
             </div>
@@ -90,17 +90,9 @@
       }
 
       function handleSuggestionClick(suggestion) {
-        addMessage('Tú', suggestion);
-        $.ajax({
-          url: '/respuesta/' + suggestion,
-          type: 'GET',
-          success: function(response) {
-            addMessage('Capsan', response.respuesta);
-          },
-          error: function() {
-            console.error('Error al obtener la respuesta');
-          }
-        });
+        //addMessage('Tú', suggestion);
+        document.getElementById('user-input').value = suggestion;
+        //handleUserInput();
       }
 
       function addSuggestions(suggestions) {
@@ -118,7 +110,9 @@
         });
       }
 
-      var initialSuggestions = ['¿Qué comen los capibaras?', '¿Por qué capibaras y sandías?', '¿Es la sandía top tier?'];
+      var initialSuggestions = ['¿Qué comen los capibaras?', '¿Por qué capibaras y sandías?', '¿Es la sandía top tier?',
+    '¿Puedo tener un capibara como mascota?','¿Dónde se originaron las sandías?','¿Cuántas especies de sandías existen?',
+    '¿Existen sandías de otros colores además de las rojas?'];
       addSuggestions(initialSuggestions);
 
       var successMessage = document.getElementById("success-message");

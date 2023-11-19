@@ -4,6 +4,9 @@
 <div class="container w-50">
     <form action="{{route('ChatbotInsertar')}}" method="post">
         @csrf
+        @if($errors->any())
+            <div style="color: red" class="w-100 text-center ">{{ $errors->first('mensaje') }}</div>
+        @endif
         <div class="form-group">
             <label for="pregunta" class="form-label">Pregunta</label>
             <textarea name="pregunta" id="pregunta" class="form-control" style="resize: none;"

@@ -4,9 +4,9 @@
 <div class="container w-25">
     <form action="{{route('IniciarLogin')}}" method="post">
         @csrf
-        @error('mensaje')
-            <div style="color:red">{{$message}}</div>
-        @enderror
+        @if($errors->any())
+            <div style="color: red" class="w-100 text-center ">{{ $errors->first('mensaje') }}</div>
+        @endif
         <div class="from-group">
             <label for="username" class="form-label">Usuario</label>
             <input type="text" name="username" id="username" class="form-control"

@@ -23,7 +23,7 @@ class LoginController extends Controller
         ]);
         if(!auth()->attempt($request->only('username','password')))
         {
-            return back()->with('mensaje','Credenciales incorrectas');
+            return back()->withErrors(['mensaje' => 'Credenciales incorrectas'])->withInput();
         }
         return redirect('/');
     }
