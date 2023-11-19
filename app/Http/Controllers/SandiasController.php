@@ -96,4 +96,45 @@ class SandiasController extends Controller
         session()->flash('status','Se eliminó la característica correctamente');
         return redirect()->route('CarIndex',['categoria'=>$categoria]);
     }
+
+    function putCar($id)
+    {
+        $caracteristicas = Caracteristica::find($id);
+        $categoria = $caracteristicas->categoria;
+        return view('Sandías.modificarCar', compact('caracteristicas', 'categoria'));
+    }
+
+    function updateCar(Request $request, $id)
+    {
+        $this->validate($request,[
+            'caracteristica'=>['required','min:3','max:20'],
+            'descripcion'=>['required','min:10','max:270'],
+            'icono'=>['image','mimes:jpeg,png,jpg,gif'],
+        ]);
+
+        $caracteristicas = Caracteristica::find($id);
+        $imagenVieja=$caracteristicas->icono;
+        $categoria=$caracteristicas->categoria;
+
+        if ($request->hasFile('icono'))
+        {
+            if($imagenVieja!=$request->icono)
+            {
+                if (file_exists(public_path($imagenVieja))) {
+                    unlink(public_path($imagenVieja));
+                }
+            }
+            $imagen = $request->file('icono');
+            $nombreImagen = time() . '_' . $imagen->getClientOriginalName();
+            $subir=$imagen->move('img/iconos/', $nombreImagen);
+            $caracteristicas->icono='img/iconos/' . $nombreImagen;
+        }
+
+        $caracteristicas->caracteristica=$request->caracteristica;
+        $caracteristicas->descripcion=$request->descripcion;
+        $caracteristicas->save();
+
+        return redirect()->route('CarIndex', ['categoria' => $categoria])
+        ->with('success','Característica actualizada correctamente.');
+    }
 }

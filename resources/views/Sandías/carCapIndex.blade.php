@@ -28,7 +28,7 @@
             <td>{{$car->icono}}</td>
             <td>
                 <div class="d-flex">
-                    <a class="btn btn-success mx-1" href="">
+                    <a class="btn btn-success mx-1" href="{{route('PutCar',['id'=>$car->id])}}">
                         Editar</a>
                     <form class="formulario-eliminar" action="{{route('DeleteCar',['id'=>$car->id])}}"
                          method="post">

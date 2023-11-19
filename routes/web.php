@@ -30,6 +30,8 @@ Route::get('/Sandías/modificarCar{categoria}',[SandiasController::class,'create
 Route::get('/Sandías/agregararCar{categoria}',[SandiasController::class,'verCar'])->name('VerCar');
 Route::post('/Sandías/modificarCar',[SandiasController::class,'saveCar'])->name('SaveCar');
 Route::delete('/Sandías{id}',[SandiasController::class,'deleteCar'])->name('DeleteCar');
+Route::get('/Sandías{id}',[SandiasController::class, 'putCar'])->name('PutCar');
+Route::put('/Sandías/modificarCar{id}',[SandiasController::class,'updateCar'])->name('UpdateCar');
 //Chatbot
 Route::get('/Chatbot/index',[ChatbotController::class,'index'])->name('ChatbotIndex');
 Route::get('/Chatbot/alimentar',[ChatbotController::class,'formulario'])->name('ChatbotAlimentar');
