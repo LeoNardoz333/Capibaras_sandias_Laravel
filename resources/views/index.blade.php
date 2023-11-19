@@ -131,22 +131,10 @@
       </form>
     @endif
     <div class="w-100 margen-boton">
-        <form action="" class="w-100 d-flex justify-content-center">
+        <form action="{{route('Video')}}" class="w-100 d-flex justify-content-center">
             <input type="submit" value="Ver vídeo" class="botonuwu mt-5">
         </form>
-    </div>
-    <section>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-            <path fill="#ffaf2b " fill-opacity="1" d="M0,64L205.7,96L411.4,256L617.1,96L822.9,320L1028.6,64L1234.3,128L1440,32L1440,320L1234.3,320L1028.6,320L822.9,320L617.1,320L411.4,320L205.7,320L0,320Z"></path></svg>
-    </section>
-    <footer class="w-100 d-flex justify-content-center align-items-center footer-cap">
-        <p class="fs-5 px-3 pt-3">
-            Nardoz &copy; Todos los derechos reservados.
-        </p>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script>
+    </div><script>
         document.addEventListener("DOMContentLoaded", function() {
         var successMessage = document.getElementById("success-message");
             successMessage.style.display = "block";

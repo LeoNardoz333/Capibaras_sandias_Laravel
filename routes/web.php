@@ -32,6 +32,7 @@ Route::post('/Sandías/modificarCar',[SandiasController::class,'saveCar'])->name
 Route::delete('/Sandías{id}',[SandiasController::class,'deleteCar'])->name('DeleteCar');
 Route::get('/Sandías{id}',[SandiasController::class, 'putCar'])->name('PutCar');
 Route::put('/Sandías/modificarCar{id}',[SandiasController::class,'updateCar'])->name('UpdateCar');
+Route::get('/Sandías/video',function(){ return view('Sandías.video'); })->name('Video');
 //Chatbot
 Route::get('/Chatbot/index',[ChatbotController::class,'index'])->name('ChatbotIndex');
 Route::get('/Chatbot/alimentar',[ChatbotController::class,'formulario'])->name('ChatbotAlimentar');
