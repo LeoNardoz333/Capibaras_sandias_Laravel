@@ -20,6 +20,9 @@ Route::get('/', function () {
     return view('index');
 });
 Route::get('/Sandías/index',[SandiasController::class,'index'])->name('SandiasIndex');
+//Capibaras
+Route::get('/Sandías/modificarDesc{categoria}',[SandiasController::class,'createDescripcion'])
+->name('VerDescripcion');
 //Chatbot
 Route::get('/Chatbot/index',[ChatbotController::class,'index'])->name('ChatbotIndex');
 Route::get('/Chatbot/alimentar',[ChatbotController::class,'formulario'])->name('ChatbotAlimentar');

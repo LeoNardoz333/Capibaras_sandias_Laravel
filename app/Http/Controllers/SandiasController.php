@@ -10,4 +10,9 @@ class SandiasController extends Controller
     {
         return view('Sandías.index');
     }
+
+    function createDescripcion($categoria)
+    {
+        return View('Sandías.modificarDesc',compact('categoria'));
+    }
 }
