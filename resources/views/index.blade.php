@@ -1,6 +1,11 @@
 @extends('layouts.app')
 @section('container')
 <body>
+    @if (session('success'))
+    <div id="success-message" class="alert alert-success" style="display: none;">
+        {{ session('success') }}
+    </div>
+    @endif
     <div class="mt-5 w-100 d-flex justify-content-center">
         <span class="Titulo fw-bold">Capibaras</span>
     </div>
@@ -8,17 +13,17 @@
         $descripcionowo = DB::table('descripcions')->where('categoria','capibaras')->value('descripcion');
     @endphp
     @if (auth()->check())
+        @if ($descripcionowo != null)
+        <div class="mt-5 w-75 mx-auto">
+            <span class="parrafo d-flex justify-content-center">
+              {{$descripcionowo}}
+            </span>
+        </div>
+        @endif
         @if (auth()->user()->permisos == 'admin')
-            @if ($descripcionowo != null)
-            <div class="mt-5 w-75 mx-auto">
-                <span class="parrafo d-flex justify-content-center">
-                  {{$descripcionowo}}
-                </span>
-            </div>
-            @endif
             <form action="{{route('VerDescripcion',['categoria'=>'capibaras'])}}" method="get">
               <div class="w-100 d-flex">
-                  <input type="submit" class="botonuwu mt-3 mx-auto " value="Mod. descripción">
+                  <input type="submit" class="botonuwu mt-3 mx-auto" value="Mod. descripción">
               </div>
             </form>
         @endif
@@ -158,5 +163,14 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+        var successMessage = document.getElementById("success-message");
+            successMessage.style.display = "block";
+        setTimeout(function() {
+            successMessage.style.display = "none";
+        }, 3000);
+    });
+    </script>
 </body>
 @endsection

@@ -23,6 +23,11 @@ Route::get('/Sandías/index',[SandiasController::class,'index'])->name('SandiasI
 //Capibaras
 Route::get('/Sandías/modificarDesc{categoria}',[SandiasController::class,'createDescripcion'])
 ->name('VerDescripcion');
+Route::post('/Sandías/modificarDesc',[SandiasController::class,'saveDescripcion'])
+->name('SaveDesc');
+Route::get('/', function () {
+    return view('index');
+})->name('CapIndex');
 //Chatbot
 Route::get('/Chatbot/index',[ChatbotController::class,'index'])->name('ChatbotIndex');
 Route::get('/Chatbot/alimentar',[ChatbotController::class,'formulario'])->name('ChatbotAlimentar');
