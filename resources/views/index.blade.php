@@ -104,51 +104,34 @@
     <div class="mt-5 w-100 d-flex justify-content-center">
         <span class="Titulo fw-bold">Características</span>
     </div>
+    @php
+        $cars=DB::table('caracteristicas')->where('categoria','capibaras')
+        ->select('caracteristica','descripcion','icono')->get();
+    @endphp
     <section class="container-fluid mt-3">
         <div class="row mx-auto ancho-caracteristicas fila mt-5">
+            @if($cars->count()>0)
+            @foreach ($cars as $car)
             <div class="my-2 col-lg-6 col-md-12 col-sm-12 d-flex wrap">
-                <img class="iconos" src="./img/iconos/fruta.png">
+                <img class="iconos" src="{{$car->icono}}">
                 <div>
-                    <h2 class="fs-5 mt-1 px-4 pb-1"><strong>Alimentación</strong></h2>
-                    <p class="px-4 parrafo-caracteristicas">Se alimenta principalmente
-                         de plantas acuáticas, gramíneas y otras hierbas palustres. Pero
-                         también consumen flores, frutos y semillas, y utiliza la corteza
-                         de los árboles para roer y desgastar sus dientes incisivos.</p>
+                    <h2 class="fs-5 mt-1 px-4 pb-1"><strong>{{$car->caracteristica}}</strong></h2>
+                    <p class="px-4 parrafo-caracteristicas">{{$car->descripcion}}</p>
                 </div>
             </div>
-            <div class="my-2 col-lg-6 col-md-12 col-sm-12 d-flex wrap">
-                <img class="iconos" src="./img/iconos/habitat.png">
-                <div>
-                    <h2 class="fs-5 mt-1 px-4 pb-1"><strong>Hábitat</strong></h2>
-                    <p class="px-4 parrafo-caracteristicas">Vive cerca de un cuerpo de agua, debe haber
-                        áreas cercanas para pastorear y alimentarse y zonas secas para descansar y
-                         tener a las crias
-                    </p>
-                </div>
-            </div>
-            <div class="my-2 col-lg-6 col-md-12 col-sm-12 d-flex wrap">
-                <img class="iconos" src="./img/iconos/comportamiento.png">
-                <div>
-                    <h2 class="fs-5 mt-1 px-4 pb-1"><strong>Comportamiento</strong></h2>
-                    <p class="px-4 parrafo-caracteristicas">Es un animal gregario, vive en grupos numerosos de entre 6 a 30 individuos.
-                        Suelen organizar el espacio donde viven.Pueden comunicarse entre ellos emitiendo señales.
-                    </p>
-                </div>
-            </div>
-            <div class="my-2 col-lg-6 col-md-12 col-sm-12 d-flex wrap">
-                <img class="iconos" src="./img/iconos/reproduccion.png">
-                <div>
-                    <h2 class="fs-5 mt-1 px-4 pb-1"><strong>Reproducción</strong></h2>
-                    <p class="px-4 parrafo-caracteristicas">Se pueden reproducir durante todo el año,
-                        pero sobre todo en primavera-verano. Alcanzan
-                         su madurez sexual entre el año y medio y dos de vida y el tipo de reproducción
-                          que llevan involucra a un macho con varias hembras.</p>
-                </div>
-            </div>
+            @endforeach
+            @endif
         </div>
     </section>
+    @if(auth()->check() && auth()->user()->permisos == 'admin')
+    <form action="{{route('CarIndex',['categoria'=>'capibaras'])}}" method="get">
+        <div class="w-100 d-flex">
+            <input type="submit" class="botonuwu mt-3 mx-auto" value="Mod. Características">
+        </div>
+      </form>
+    @endif
     <div class="w-100 margen-boton">
-        <form action="video.html" class="w-100 d-flex justify-content-center">
+        <form action="" class="w-100 d-flex justify-content-center">
             <input type="submit" value="Ver vídeo" class="botonuwu mt-5">
         </form>
     </div>

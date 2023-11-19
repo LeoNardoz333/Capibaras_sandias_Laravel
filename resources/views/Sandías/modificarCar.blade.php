@@ -1,17 +1,30 @@
 @extends('layouts.modificar')
 @section('container')
 <body>
+    <h1 class="text-center mt-5">Registro</h1>
     <div class="container w-50">
-        <form action="{{route('SaveDesc')}}" method="post">
+        <form action="" method="post">
             @csrf
             <input type="text" value="{{$categoria}}" name="categoria" hidden>
-            <div class="form-group w-100 text-center mt-3 mb-3">
-                <label for="descripcion" class="form-label mb-3 fs-2 ">Nueva descripción</label>
+            <div class="from-group">
+                <label for="caracteristica" class="form-label fs-5 ">Característica</label>
+                <input type="text" name="caracteristica" id="caracteristica" class="form-control"
+                value="{{old('caracteristica')}}" placeholder="Escribe el título de la característica...">
+                @error('caracteristica')
+                    <div style="color:red">{{$message}}</div>
+                @enderror
+            </div>
+            <div class="form-group w-100 mt-3 mb-3">
+                <label for="caracteristica" class="form-label fs-5 ">Descripción</label>
                 <textarea name="descripcion" id="descripcion" class="form-control" style="resize: none;"
-                placeholder="Descripción general de los capibaras...">{{ old('descripcion') }}</textarea>
+                placeholder="Describe la/las Características...">{{ old('descripcion') }}</textarea>
                 @error('descripcion')
                     <div style="color:red">{{ $message }}</div>
                 @enderror
+            </div>
+            <div class="from-group mb-4">
+                <label for="caracteristica" class="form-label fs-5 ">Icono</label>
+                <input type="file" name="icono" accept="image/*" class="form-control">
             </div>
             <div class="from-group mt-2">
                 @if($categoria == 'capibaras')

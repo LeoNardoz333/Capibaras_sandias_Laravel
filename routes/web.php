@@ -25,9 +25,11 @@ Route::get('/Sandías/modificarDesc{categoria}',[SandiasController::class,'creat
 ->name('VerDescripcion');
 Route::post('/Sandías/modificarDesc',[SandiasController::class,'saveDescripcion'])
 ->name('SaveDesc');
-Route::get('/', function () {
-    return view('index');
-})->name('CapIndex');
+Route::get('/', function () { return view('index'); })->name('CapIndex');
+Route::get('/Sandías/modificarCar{categoria}',[SandiasController::class,'createCar'])->name('CarIndex');
+Route::get('/Sandías/agregararCar{categoria}',[SandiasController::class,'verCar'])->name('VerCar');
+Route::post('/Sandías/modificarCar',[SandiasController::class,'saveCar'])->name('SaveCar');
+Route::delete('/Sandías{id}',[SandiasController::class,'deleteCar'])->name('DeleteCar');
 //Chatbot
 Route::get('/Chatbot/index',[ChatbotController::class,'index'])->name('ChatbotIndex');
 Route::get('/Chatbot/alimentar',[ChatbotController::class,'formulario'])->name('ChatbotAlimentar');
