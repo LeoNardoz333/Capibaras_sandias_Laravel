@@ -45,6 +45,12 @@
                     onkeydown="handleEnter(event)" name="pregunta">
                 </form>
               @endif
+            @else
+            <form action="{{route('ChatbotRespuesta')}}" method="POST" name="form-enviar" id="form-enviar">
+                @csrf
+                <input class="w-100" type="text" id="user-input" placeholder="Escribe tu pregunta..."
+                onkeydown="handleEnter(event)" name="pregunta">
+            </form>
             @endif
           </div>
         </div>
@@ -73,7 +79,7 @@
         addMessage('Tú', userInput);
         document.getElementById('user-input').value = '';
 
-        $.ajax({
+        /*$.ajax({
           url: "{{ route('ChatbotRespuesta') }}",
           type: 'POST',
           data: {
@@ -86,7 +92,7 @@
           error: function() {
             console.error('Error al obtener la respuesta');
           }
-        });
+        });*/
       }
 
       function handleSuggestionClick(suggestion) {
