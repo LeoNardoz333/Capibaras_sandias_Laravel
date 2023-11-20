@@ -6,7 +6,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
           <li class="nav-item">
             <a class="nav-link active" href="/" style="color: #461421;" aria-current="page">Capibaras</a>
           </li>
@@ -35,9 +35,6 @@
               </form>
           </li>
           @endif
-          <li class="nav-item">
-            <!-- <span>Usuario: auth()->user()->username</span> -->
-          </li>
         </ul>
       </div>
     </div>

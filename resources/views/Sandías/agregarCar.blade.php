@@ -32,8 +32,11 @@
             <div class="from-group mt-2">
                 @if($categoria == 'capibaras')
                 <button for="submit" class="btn" style="background-color: #FACB4B;">Guardar</button>
-                @endif
                 <a href="/" class="btn btn-danger">Cancelar</a>
+                @else
+                <button for="submit" class="btn" style="background-color: #FE8D8D;">Guardar</button>
+                <a href="SandiasIndex" class="btn btn-danger">Cancelar</a>
+                @endif
             </div>
         </form>
     </div>
@@ -43,7 +46,9 @@
             <a href="/"><button class="botonuwu">Regresar</button></a>
         </div>
     @else
-        <p>El valor de 'categoria' no es 'capibaras'.</p>
+    <div class="w-100 mt-3 position-absolute bottom-0 "
+    style="margin-left: 10px; margin-bottom:10px;">
+        <a href="{{route('SandiasIndex')}}"><button class="botonuwu-sandias">Regresar</button></a>
     @endif
 </body>
 @endsection

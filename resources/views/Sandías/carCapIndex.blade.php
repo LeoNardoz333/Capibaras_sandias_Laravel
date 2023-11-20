@@ -1,14 +1,28 @@
-@extends('layouts.app')
+@php
+    if($categoria=='capibaras')
+    {
+        $layout='layouts.app';
+    }
+    else if($categoria=='sandias')
+    {
+        $layout='layouts.rosa';
+    }
+@endphp
+@extends($layout)
 @section('container')
 @if (session('success'))
 <div id="success-message" class="alert alert-success" style="display: none;">
     {{ session('success') }}
 </div>
 @endif
-<h1 class="text-center">Características</h1>
+<h1 class="text-center mt-3">Características</h1>
 <div class="container">
     <form action="{{route('VerCar',['categoria'=>$categoria])}}" method="get">
+        @if($categoria=='capibaras')
         <button class="btn mb-2" type="submit" style="background-color: #FACB4B;">
+        @else
+        <button class="btn mb-2" type="submit" style="background-color: #FE8D8D;">
+        @endif
             <span class="p-4">Nueva</span>
         </button>
     </form>

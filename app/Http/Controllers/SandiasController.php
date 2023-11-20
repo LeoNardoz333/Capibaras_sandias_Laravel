@@ -40,7 +40,9 @@ class SandiasController extends Controller
             update(['descripcion'=>$request->descripcion]);
         }
         if($request->categoria=='capibaras')
-        return redirect()->route('CapIndex')->with('success', 'Descripción actualizada correctamente');
+            return redirect()->route('CapIndex')->with('success', 'Descripción actualizada correctamente');
+        else
+            return redirect()->route('SandiasIndex')->with('success', 'Descripción actualizada correctamente');
     }
 
     function createCar($categoria)
