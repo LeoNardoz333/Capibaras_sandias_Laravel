@@ -29,4 +29,11 @@ class OpinionesController extends Controller
         ]);
         return redirect()->route('OpinionesIndex')->with('success', 'Opinión agregada correctamente');
     }
+
+    function deleteOpinion($id)
+    {
+        $opinion=Opinion::find($id);
+        $opinion->delete();
+        return redirect()->route('OpinionesIndex');
+    }
 }

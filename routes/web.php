@@ -40,7 +40,7 @@ Route::get('Sandías/index',function(){ return view('Sandías.index'); })->name(
 Route::get('Opiniones/index',[OpinionesController::class,'index'])->name('OpinionesIndex');
 Route::get('Opiniones/addOpinion',[OpinionesController::class,'addOpinion'])->name('AddOpinion');
 Route::post('Opiniones/addOpinion',[OpinionesController::class,'saveOpinion'])->name('SaveOpinion');
-Route::delete('/Opiniones/index{id}',[OpinionesController::class,'deleteOpinio'])->name('DeleteOpinion');
+Route::delete('/Opiniones/index{id}',[OpinionesController::class,'deleteOpinion'])->name('DeleteOpinion');
 //Chatbot
 Route::get('/Chatbot/index',[ChatbotController::class,'index'])->name('ChatbotIndex');
 Route::get('/Chatbot/alimentar',[ChatbotController::class,'formulario'])->name('ChatbotAlimentar');
