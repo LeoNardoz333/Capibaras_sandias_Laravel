@@ -14,7 +14,7 @@
             <a class="nav-link active" href="{{route('SandiasIndex')}}" style="color: #461421;;" aria-current="page">Sandías</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="" style="color: #461421;;" aria-current="page">Opiniones</a>
+            <a class="nav-link active" href="{{route('OpinionesIndex')}}" style="color: #461421;;" aria-current="page">Opiniones</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="{{route('ChatbotIndex')}}" style="color: #461421;;" aria-current="page">¿Preguntas?</a>

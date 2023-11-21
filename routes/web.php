@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SandiasController;
 use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\OpinionesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,10 @@ Route::put('/Sandías/modificarCar{id}',[SandiasController::class,'updateCar'])-
 Route::get('/Sandías/video',function(){ return view('Sandías.video'); })->name('Video');
 //Sandías
 Route::get('Sandías/index',function(){ return view('Sandías.index'); })->name('SandiasIndex');
+//Opiniones
+Route::get('Opiniones/index',[OpinionesController::class,'index'])->name('OpinionesIndex');
+Route::get('Opiniones/addOpinion',[OpinionesController::class,'addOpinion'])->name('AddOpinion');
+Route::post('Opiniones/addOpinion',[OpinionesController::class,'saveOpinion'])->name('SaveOpinion');
 //Chatbot
 Route::get('/Chatbot/index',[ChatbotController::class,'index'])->name('ChatbotIndex');
 Route::get('/Chatbot/alimentar',[ChatbotController::class,'formulario'])->name('ChatbotAlimentar');

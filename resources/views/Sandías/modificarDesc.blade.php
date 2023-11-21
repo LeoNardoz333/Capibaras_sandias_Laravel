@@ -36,7 +36,7 @@
     @if($categoria == 'capibaras')
     <div class="w-100 mt-3 position-absolute bottom-0 "
     style="margin-left: 10px; margin-bottom:10px;">
-        <a href="/"><button class="botonuwu-sandias">Regresar</button></a>
+        <a href="/"><button class="botonuwu">Regresar</button></a>
     </div>
     @elseif($categoria == 'sandias')
     <div class="w-100 mt-3 position-absolute bottom-0 "
