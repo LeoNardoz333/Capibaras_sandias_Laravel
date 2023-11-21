@@ -61,7 +61,8 @@
   </div>
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      function addMessage(sender, message) {
+
+      /*function addMessage(sender, message) {
         var chatMessages = document.getElementById('chat-messages');
         var newMessage = document.createElement('div');
         newMessage.innerHTML = `<strong>${sender}:</strong> ${message}`;
@@ -92,8 +93,8 @@
           error: function() {
             console.error('Error al obtener la respuesta');
           }
-        });*/
-      }
+        });
+      }*/
 
       function handleSuggestionClick(suggestion) {
         //addMessage('Tú', suggestion);
