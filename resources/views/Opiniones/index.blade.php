@@ -16,8 +16,29 @@
         <span class="Titulo-sandias fw-bold">Opiniones</span>
     </div>
     @foreach ($opiniones as $opinion)
-    <div class="d-flex w-75 mx-auto borde-comentario px-2 pt-3 mt-4">
-        <p style="font-size: 16px;"><span class="text-sandias">{{$opinion->usuario}}:</span>{{$opinion->opinion}}</p>
+    <div class="d-flex flex-column w-75 mx-auto borde-comentario px-2 pt-3 mt-4">
+        <div class="flex-grow-1">
+            <p style="font-size: 16px;"><span class="text-sandias">{{$opinion->usuario}}:</span>{{$opinion->opinion}}</p>
+        </div>
+        @if(auth()->check())
+        <div class="d-flex align-content-end ">
+            @if(auth()->user()->permisos=='admin')
+            <form class="formulario-eliminar ms-auto" action="{{route('DeleteOpinion',['id'=>$opinion->id])}}"
+                method="post">
+               @csrf
+               @method('DELETE')
+               <button class="btn btn-danger my-2">Eliminar</button>
+           </form>
+            @elseif(auth()->user()->username==$opinion->usuario)
+            <form class="formulario-eliminar ms-auto" action="{{route('DeleteOpinion',['id'=>$opinion->id])}}"
+                method="post">
+               @csrf
+               @method('DELETE')
+               <button class="btn btn-danger my-2">Eliminar</button>
+            </form>
+            @endif
+        </div>
+        @endif
     </div>
     @endforeach
     @php
