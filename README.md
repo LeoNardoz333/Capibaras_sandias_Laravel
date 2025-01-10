@@ -5,6 +5,7 @@ Tecnologías de desarrollo:
 - HTML
 - CSS (Bootstrap)
 - PHP (Laravel)
+- Base de datos MYSQL
 - Línea de comandos (Linux)
 
 Entorno de desarrollo
